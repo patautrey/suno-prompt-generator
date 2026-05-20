@@ -216,16 +216,39 @@
     </div>
 
     <div class="input-group">
-        <label for="vocals">Vocal Style / Type:</label>
+        <label for="vocals">Vocal Style / Arrangement:</label>
         <select id="vocals">
             <option value="">-- Select Vocal Type (Optional) --</option>
-            <option value="male vocals">Male Vocals</option>
-            <option value="female vocals">Female Vocals</option>
-            <option value="soaring vocals">Soaring Vocals</option>
-            <option value="gritty vocals">Gritty / Raw Vocals</option>
-            <option value="whispering vocals">Whispering / Soft Vocals</option>
-            <option value="melodic vocals">Melodic / Clean Vocals</option>
-            <option value="instrumental">Instrumental Only (No Vocals)</option>
+            <optgroup label="Solo Voices">
+                <option value="male vocals">Male Solo Vocals</option>
+                <option value="female vocals">Female Solo Vocals</option>
+                <option value="soaring vocals">Soaring / Powerful Lead</option>
+                <option value="gritty raw vocals">Gritty / Raw Vocals</option>
+                <option value="whispering soft vocals">Whispering / Soft Vocals</option>
+                <option value="melodic clean vocals">Melodic / Clean Vocals</option>
+            </optgroup>
+            <optgroup label="Harmonies & Group Vocals">
+                <option value="male-female duet">Male-Female Duet</option>
+                <option value="lush 3-part harmony">Lush 3-Part Harmony</option>
+                <option value="interlocking vocal counterpoint">Interlocking Vocal Counterpoint</option>
+                <option value="call-and-response vocals">Call-and-Response Vocals</option>
+                <option value="layered backing vocals">Layered Backing Harmonies</option>
+            </optgroup>
+            <optgroup label="Choirs & Large Ensembles">
+                <option value="grand church choir">Grand Church Choir</option>
+                <option value="haunting gregorian chant choir">Gregorian Chant Choir</option>
+                <option value="gospel choir backing">Soulful Gospel Choir</option>
+                <option value="epic cinematic vocal ensemble">Epic Cinematic Ensemble</option>
+            </optgroup>
+            <optgroup label="Theatrical & Extreme Styles">
+                <option value="dramatic operatic vocals">Dramatic Operatic Vocals</option>
+                <option value="aggressive screamo vocals">Aggressive Screamo Vocals</option>
+                <option value="guttural death metal growls">Guttural Metal Growls</option>
+                <option value="rhythmic spoken word rap">Rhythmic Spoken Word / Rap</option>
+            </optgroup>
+            <optgroup label="No Vocals">
+                <option value="instrumental">Instrumental Only (No Vocals)</option>
+            </optgroup>
         </select>
     </div>
 
@@ -348,7 +371,6 @@ function generatePrompt() {
 
     let tags = [];
 
-    // Order matters for best Suno tag readability
     if (genre) tags.push(genre);
     if (mood) tags.push(mood);
     if (production) tags.push(production);
