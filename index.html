@@ -146,7 +146,7 @@
         <select id="mood">
             <option value="">-- Select Mood (Optional) --</option>
             <option value="uplifting">Uplifting & Joyful</option>
-            <option value="energetic">High-Energy & Energetic</option>
+            <option value="energetic">High-Energy & Driven</option>
             <option value="melancholic">Melancholic & Tearful</option>
             <option value="dark">Dark & Sinister</option>
             <option value="mysterious">Mysterious & Cryptic</option>
@@ -170,6 +170,37 @@
             <option value="furious">Furious & Explosive</option>
             <option value="lonely">Lonely & Desolate</option>
             <option value="rebellious">Rebellious & Defiant</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label for="production">Production & Mix Environment:</label>
+        <select id="production">
+            <option value="">-- Select Production Style (Optional) --</option>
+            <option value="polished radio master">Polished Radio Master (Clean, Commercial)</option>
+            <option value="raw garage rehearsal mix">Raw Garage Rehearsal (Gritty, Real Room)</option>
+            <option value="lo-fi cassette warmth">Lo-Fi Cassette Warmth (Vintage Analog Hiss)</option>
+            <option value="crispy modern streaming master">Crispy Streaming Master (Max Clarity, Loud)</option>
+            <option value="smoky underground club mix">Underground Club Mix (Heavy Low-End Bass)</option>
+            <option value="warm analog tape saturation">Analog Tape Saturation (Rich Midrange)</option>
+            <option value="intimate studio dry mix">Intimate Dry Mix (Up-Close, Minimal Reverb)</option>
+            <option value="washed-out cavernous reverb space">Cavernous Reverb Space (Distant, Massive Echoes)</option>
+            <option value="dusty vinyl sample aesthetic">Dusty Vinyl Sample (Old Record Player Feel)</option>
+            <option value="high-fidelity futuristic clean mix">Hi-Fi Futuristic Mix (Ultra-Sharp Electronic)</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label for="progression">Dynamic Progression & Arrangement:</label>
+        <select id="progression">
+            <option value="">-- Select Track Progression (Optional) --</option>
+            <option value="gradual dynamic build to massive climax">Gradual Build (Starts small, explodes at end)</option>
+            <option value="minimalist sparse arrangement">Minimalist & Sparse (Keeps it empty, clean)</option>
+            <option value="explosive energy jumps and drops">Sudden Explosive Jumps (High-impact drops)</option>
+            <option value="steady rhythmic driving repetition">Steady Driving Repetition (Hypnotic, Constant)</option>
+            <option value="loud-quiet-loud alternative dynamics">Loud-Quiet-Loud (Classic 90s alternative structure)</option>
+            <option value="evolving atmospheric layers">Evolving Layers (Sounds shifting smoothly)</option>
+            <option value="anthem hook focus">Anthemic Focus (Big, immediate, simple structures)</option>
         </select>
     </div>
 
@@ -308,6 +339,8 @@
 function generatePrompt() {
     const genre = document.getElementById('genre').value;
     const mood = document.getElementById('mood').value;
+    const production = document.getElementById('production').value;
+    const progression = document.getElementById('progression').value;
     const tempo = document.getElementById('tempo').value;
     const vocals = document.getElementById('vocals').value;
     const inst1 = document.getElementById('instrument1').value;
@@ -315,8 +348,11 @@ function generatePrompt() {
 
     let tags = [];
 
+    // Order matters for best Suno tag readability
     if (genre) tags.push(genre);
     if (mood) tags.push(mood);
+    if (production) tags.push(production);
+    if (progression) tags.push(progression);
     if (tempo) tags.push(tempo);
     if (inst1) tags.push(inst1);
     if (inst2) tags.push(inst2);
