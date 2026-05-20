@@ -1,97 +1,237 @@
-<div class="input-group">
-  <label for="instrument1">Instrument & Texture - Option 1:</label>
-  <select id="instrument1">
-    <option value="">-- Select Option 1 --</option>
-    <optgroup label="Keys & Organs">
-      <option value="Rhodes Electric Piano">Rhodes Electric Piano</option>
-      <option value="Wurlitzer">Wurlitzer</option>
-      <option value="Clavinet">Clavinet</option>
-      <option value="Hammond Organ">Hammond Organ</option>
-      <option value="Harpsichord">Harpsichord</option>
-      <option value="Pipe Organ">Pipe Organ</option>
-    </optgroup>
-    <optgroup label="Strings & Folk">
-      <option value="Slap Bass">Slap Bass</option>
-      <option value="Upright Bass">Upright Bass</option>
-      <option value="Distorted Guitar">Distorted Guitar</option>
-      <option value="Nylon-String Guitar">Nylon-String Guitar</option>
-      <option value="Mandolin">Mandolin</option>
-      <option value="Banjo">Banjo</option>
-    </optgroup>
-    <optgroup label="Synths & Electronic">
-      <option value="Analog Synth">Analog Synth</option>
-      <option value="Synth Pad">Synth Pad</option>
-      <option value="808 Bass">808 Bass</option>
-      <option value="Arpeggiated Synth">Arpeggiated Synth</option>
-      <option value="Supersaw">Supersaw</option>
-      <option value="Chiptune 8-bit">Chiptune 8-bit</option>
-    </optgroup>
-    <optgroup label="Drums & Percussion">
-      <option value="Brush Drums">Brush Drums</option>
-      <option value="Taiko Drums">Taiko Drums</option>
-      <option value="Cajón">Cajón</option>
-      <option value="Congas">Congas</option>
-      <option value="Tambourine & Shaker">Tambourine & Shaker</option>
-    </optgroup>
-    <optgroup label="Horns & Wind">
-      <option value="Muted Trumpet">Muted Trumpet</option>
-      <option value="Saxophone">Saxophone</option>
-      <option value="Flute">Flute</option>
-    </optgroup>
-    <optgroup label="Textures & FX">
-      <option value="Vinyl Crackle">Vinyl Crackle</option>
-      <option value="Tape Hiss">Tape Hiss</option>
-      <option value="Crowd Murmurs">Crowd Murmurs</option>
-      <option value="Reverb Swells">Reverb Swells</option>
-    </optgroup>
-  </select>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suno Style Prompt Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        h1 {
+            text-align: center;
+            color: #ff4757;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #a4b0be;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #333;
+            background-color: #2f3542;
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #ff6b81;
+        }
+        .output-box {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #2f3542;
+            border-left: 5px solid #ff4757;
+            border-radius: 4px;
+            min-height: 40px;
+            word-wrap: break-word;
+            font-family: monospace;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .copy-btn {
+            background: #747d8c;
+            width: auto;
+            padding: 6px 12px;
+            font-size: 12px;
+            margin-top: 0;
+        }
+        .copy-btn:hover {
+            background: #a4b0be;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Suno Style Prompt Generator</h1>
+    
+    <div class="input-group">
+        <label for="genre">Core Music Genre / Style:</label>
+        <input type="text" id="genre" placeholder="e.g., 1980s Synthwave, Dark Country, Lo-Fi Hip Hop">
+    </div>
+
+    <div class="input-group">
+        <label for="instrument1">Instrument & Texture - Option 1:</label>
+        <select id="instrument1">
+            <option value="">-- Select Option 1 (Optional) --</option>
+            <optgroup label="Keys & Organs">
+                <option value="Rhodes Electric Piano">Rhodes Electric Piano</option>
+                <option value="Wurlitzer">Wurlitzer</option>
+                <option value="Clavinet">Clavinet</option>
+                <option value="Hammond Organ">Hammond Organ</option>
+                <option value="Harpsichord">Harpsichord</option>
+                <option value="Pipe Organ">Pipe Organ</option>
+            </optgroup>
+            <optgroup label="Strings & Folk">
+                <option value="Slap Bass">Slap Bass</option>
+                <option value="Upright Bass">Upright Bass</option>
+                <option value="Distorted Guitar">Distorted Guitar</option>
+                <option value="Nylon-String Guitar">Nylon-String Guitar</option>
+                <option value="Mandolin">Mandolin</option>
+                <option value="Banjo">Banjo</option>
+            </optgroup>
+            <optgroup label="Synths & Electronic">
+                <option value="Analog Synth">Analog Synth</option>
+                <option value="Synth Pad">Synth Pad</option>
+                <option value="808 Bass">808 Bass</option>
+                <option value="Arpeggiated Synth">Arpeggiated Synth</option>
+                <option value="Supersaw">Supersaw</option>
+                <option value="Chiptune 8-bit">Chiptune 8-bit</option>
+            </optgroup>
+            <optgroup label="Drums & Percussion">
+                <option value="Brush Drums">Brush Drums</option>
+                <option value="Taiko Drums">Taiko Drums</option>
+                <option value="Cajón">Cajón</option>
+                <option value="Congas">Congas</option>
+                <option value="Tambourine & Shaker">Tambourine & Shaker</option>
+            </optgroup>
+            <optgroup label="Horns & Wind">
+                <option value="Muted Trumpet">Muted Trumpet</option>
+                <option value="Saxophone">Saxophone</option>
+                <option value="Flute">Flute</option>
+            </optgroup>
+            <optgroup label="Textures & FX">
+                <option value="Vinyl Crackle">Vinyl Crackle</option>
+                <option value="Tape Hiss">Tape Hiss</option>
+                <option value="Crowd Murmurs">Crowd Murmurs</option>
+                <option value="Reverb Swells">Reverb Swells</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label for="instrument2">Instrument & Texture - Option 2:</label>
+        <select id="instrument2">
+            <option value="">-- Select Option 2 (Optional) --</option>
+            <optgroup label="Keys & Organs">
+                <option value="Rhodes Electric Piano">Rhodes Electric Piano</option>
+                <option value="Wurlitzer">Wurlitzer</option>
+                <option value="Clavinet">Clavinet</option>
+                <option value="Hammond Organ">Hammond Organ</option>
+                <option value="Harpsichord">Harpsichord</option>
+                <option value="Pipe Organ">Pipe Organ</option>
+            </optgroup>
+            <optgroup label="Strings & Folk">
+                <option value="Slap Bass">Slap Bass</option>
+                <option value="Upright Bass">Upright Bass</option>
+                <option value="Distorted Guitar">Distorted Guitar</option>
+                <option value="Nylon-String Guitar">Nylon-String Guitar</option>
+                <option value="Mandolin">Mandolin</option>
+                <option value="Banjo">Banjo</option>
+            </optgroup>
+            <optgroup label="Synths & Electronic">
+                <option value="Analog Synth">Analog Synth</option>
+                <option value="Synth Pad">Synth Pad</option>
+                <option value="808 Bass">808 Bass</option>
+                <option value="Arpeggiated Synth">Arpeggiated Synth</option>
+                <option value="Supersaw">Supersaw</option>
+                <option value="Chiptune 8-bit">Chiptune 8-bit</option>
+            </optgroup>
+            <optgroup label="Drums & Percussion">
+                <option value="Brush Drums">Brush Drums</option>
+                <option value="Taiko Drums">Taiko Drums</option>
+                <option value="Cajón">Cajón</option>
+                <option value="Congas">Congas</option>
+                <option value="Tambourine & Shaker">Tambourine & Shaker</option>
+            </optgroup>
+            <optgroup label="Horns & Wind">
+                <option value="Muted Trumpet">Muted Trumpet</option>
+                <option value="Saxophone">Saxophone</option>
+                <option value="Flute">Flute</option>
+            </optgroup>
+            <optgroup label="Textures & FX">
+                <option value="Vinyl Crackle">Vinyl Crackle</option>
+                <option value="Tape Hiss">Tape Hiss</option>
+                <option value="Crowd Murmurs">Crowd Murmurs</option>
+                <option value="Reverb Swells">Reverb Swells</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <button onclick="generatePrompt()">Generate Suno Prompt</button>
+
+    <div class="output-box">
+        <span id="result">Your prompt will appear here...</span>
+        <button class="copy-btn" onclick="copyPrompt()">Copy</button>
+    </div>
 </div>
 
-<div class="input-group">
-  <label for="instrument2">Instrument & Texture - Option 2:</label>
-  <select id="instrument2">
-    <option value="">-- Select Option 2 --</option>
-    <optgroup label="Keys & Organs">
-      <option value="Rhodes Electric Piano">Rhodes Electric Piano</option>
-      <option value="Wurlitzer">Wurlitzer</option>
-      <option value="Clavinet">Clavinet</option>
-      <option value="Hammond Organ">Hammond Organ</option>
-      <option value="Harpsichord">Harpsichord</option>
-      <option value="Pipe Organ">Pipe Organ</option>
-    </optgroup>
-    <optgroup label="Strings & Folk">
-      <option value="Slap Bass">Slap Bass</option>
-      <option value="Upright Bass">Upright Bass</option>
-      <option value="Distorted Guitar">Distorted Guitar</option>
-      <option value="Nylon-String Guitar">Nylon-String Guitar</option>
-      <option value="Mandolin">Mandolin</option>
-      <option value="Banjo">Banjo</option>
-    </optgroup>
-    <optgroup label="Synths & Electronic">
-      <option value="Analog Synth">Analog Synth</option>
-      <option value="Synth Pad">Synth Pad</option>
-      <option value="808 Bass">808 Bass</option>
-      <option value="Arpeggiated Synth">Arpeggiated Synth</option>
-      <option value="Supersaw">Supersaw</option>
-      <option value="Chiptune 8-bit">Chiptune 8-bit</option>
-    </optgroup>
-    <optgroup label="Drums & Percussion">
-      <option value="Brush Drums">Brush Drums</option>
-      <option value="Taiko Drums">Taiko Drums</option>
-      <option value="Cajón">Cajón</option>
-      <option value="Congas">Congas</option>
-      <option value="Tambourine & Shaker">Tambourine & Shaker</option>
-    </optgroup>
-    <optgroup label="Horns & Wind">
-      <option value="Muted Trumpet">Muted Trumpet</option>
-      <option value="Saxophone">Saxophone</option>
-      <option value="Flute">Flute</option>
-    </optgroup>
-    <optgroup label="Textures & FX">
-      <option value="Vinyl Crackle">Vinyl Crackle</option>
-      <option value="Tape Hiss">Tape Hiss</option>
-      <option value="Crowd Murmurs">Crowd Murmurs</option>
-      <option value="Reverb Swells">Reverb Swells</option>
-    </optgroup>
-  </select>
-</div>
+<script>
+function generatePrompt() {
+    const genre = document.getElementById('genre').value.trim();
+    const inst1 = document.getElementById('instrument1').value;
+    const inst2 = document.getElementById('instrument2').value;
+
+    let tags = [];
+
+    if (genre) tags.push(genre);
+    if (inst1) tags.push(inst1);
+    if (inst2) tags.push(inst2);
+
+    if (tags.length === 0) {
+        document.getElementById('result').innerText = "Please enter a genre or select an instrument!";
+        return;
+    }
+
+    // Suno uses simple comma separation for style tags
+    document.getElementById('result').innerText = tags.join(', ').toLowerCase();
+}
+
+function copyPrompt() {
+    const text = document.getElementById('result').innerText;
+    if (text && text !== "Your prompt will appear here..." && text !== "Please enter a genre or select an instrument!") {
+        navigator.clipboard.writeText(text);
+        alert("Prompt copied to clipboard!");
+    }
+}
+</script>
+
+</body>
+</html>
