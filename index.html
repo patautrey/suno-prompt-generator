@@ -35,7 +35,7 @@
             font-weight: 600;
             color: #a4b0be;
         }
-        input[type="text"], select {
+        select {
             width: 100%;
             padding: 12px;
             border-radius: 6px;
@@ -94,20 +94,82 @@
     
     <div class="input-group">
         <label for="genre">Core Music Genre / Style:</label>
-        <input type="text" id="genre" placeholder="e.g., 1980s Synthwave, Dark Country, Lo-Fi Hip Hop">
+        <select id="genre">
+            <option value="">-- Select Core Genre (Optional) --</option>
+            <optgroup label="Electronic & Dance">
+                <option value="1980s synthwave">1980s Synthwave</option>
+                <option value="cyberpunk industrial">Cyberpunk Industrial</option>
+                <option value="lo-fi hip hop">Lo-Fi Hip Hop</option>
+                <option value="deep house">Deep House</option>
+                <option value="eurodance">Eurodance</option>
+                <option value="liquid drum and bass">Liquid Drum & Bass</option>
+            </optgroup>
+            <optgroup label="Rock & Alternative">
+                <option value="90s grunge">90s Grunge</option>
+                <option value="classic hard rock">Classic Hard Rock</option>
+                <option value="indie surf rock">Indie Surf Rock</option>
+                <option value="gothic metal">Gothic Metal</option>
+                <option value="shoegaze">Shoegaze</option>
+                <option value="post-punk revival">Post-Punk Revival</option>
+            </optgroup>
+            <optgroup label="Pop & Urban">
+                <option value="modern r&b">Modern R&B</option>
+                <option value="70s motown soul">70s Motown Soul</option>
+                <option value="trap hip hop">Trap Hip Hop</option>
+                <option value="k-pop bounce">K-Pop Bounce</option>
+                <option value="nu-disco pop">Nu-Disco Pop</option>
+            </optgroup>
+            <optgroup label="Roots, Folk & Acoustic">
+                <option value="dark country outlaw">Dark Outlaw Country</option>
+                <option value="bluegrass americana">Bluegrass Americana</option>
+                <option value="celtic folk ballad">Celtic Folk Ballad</option>
+                <option value="roots reggae">Roots Reggae</option>
+            </optgroup>
+            <optgroup label="Jazz & Global Styles">
+                <option value="smoky jazz lounge">Smoky Jazz Lounge</option>
+                <option value="bossa nova jazz">Bossa Nova Jazz</option>
+                <option value="afrobeats groove">Afrobeats Groove</option>
+                <option value="flamenco fusion">Flamenco Fusion</option>
+                <option value="city pop">Japanese City Pop</option>
+            </optgroup>
+            <optgroup label="Cinematic & Orchestral">
+                <option value="epic orchestral fantasy">Epic Orchestral Fantasy</option>
+                <option value="dark ambient drone">Dark Ambient Drone</option>
+                <option value="neo-classical piano">Neo-Classical Piano</option>
+                <option value="cybernetic sci-fi score">Sci-Fi Synth Score</option>
+            </optgroup>
+        </select>
     </div>
 
     <div class="input-group">
         <label for="mood">Mood & Energy:</label>
         <select id="mood">
             <option value="">-- Select Mood (Optional) --</option>
-            <option value="uplifting">Uplifting & Energetic</option>
-            <option value="melancholic">Melancholic & Sad</option>
-            <option value="dark">Dark & Mysterious</option>
-            <option value="dreamy">Dreamy & Atmospheric</option>
-            <option value="aggressive">Aggressive & Powerful</option>
-            <option value="chill">Chill & Relaxed</option>
-            <option value="epic">Epic & Cinematic</option>
+            <option value="uplifting">Uplifting & Joyful</option>
+            <option value="energetic">High-Energy & Energetic</option>
+            <option value="melancholic">Melancholic & Tearful</option>
+            <option value="dark">Dark & Sinister</option>
+            <option value="mysterious">Mysterious & Cryptic</option>
+            <option value="dreamy">Dreamy & Ethereal</option>
+            <option value="aggressive">Aggressive & Fierce</option>
+            <option value="chill">Chill & Laid-back</option>
+            <option value="epic">Epic & Grand</option>
+            <option value="cinematic">Cinematic & Dramatic</option>
+            <option value="haunting">Haunting & Spooky</option>
+            <option value="nostalgic">Nostalgic & Bittersweet</option>
+            <option value="euphoric">Euphoric & Blissful</option>
+            <option value="gritty">Gritty & Unpolished</option>
+            <option value="sensual">Sensual & Smooth</option>
+            <option value="psychedelic">Psychedelic & Trippy</option>
+            <option value="triumphant">Triumphant & Heroic</option>
+            <option value="somber">Somber & Gloomy</option>
+            <option value="playful">Playful & Quirky</option>
+            <option value="anxious">Anxious & Tense</option>
+            <option value="peaceful">Peaceful & Serene</option>
+            <option value="hypnotic">Hypnotic & Trance-like</option>
+            <option value="furious">Furious & Explosive</option>
+            <option value="lonely">Lonely & Desolate</option>
+            <option value="rebellious">Rebellious & Defiant</option>
         </select>
     </div>
 
@@ -244,7 +306,7 @@
 
 <script>
 function generatePrompt() {
-    const genre = document.getElementById('genre').value.trim();
+    const genre = document.getElementById('genre').value;
     const mood = document.getElementById('mood').value;
     const tempo = document.getElementById('tempo').value;
     const vocals = document.getElementById('vocals').value;
@@ -253,7 +315,6 @@ function generatePrompt() {
 
     let tags = [];
 
-    // Order elements smoothly for Suno's parsing engine
     if (genre) tags.push(genre);
     if (mood) tags.push(mood);
     if (tempo) tags.push(tempo);
@@ -262,17 +323,16 @@ function generatePrompt() {
     if (vocals) tags.push(vocals);
 
     if (tags.length === 0) {
-        document.getElementById('result').innerText = "Please fill out or select at least one feature!";
+        document.getElementById('result').innerText = "Please select at least one feature!";
         return;
     }
 
-    // Combine everything into a perfect lowercase comma-separated tag string
     document.getElementById('result').innerText = tags.join(', ').toLowerCase();
 }
 
 function copyPrompt() {
     const text = document.getElementById('result').innerText;
-    if (text && text !== "Your prompt will appear here..." && text !== "Please fill out or select at least one feature!") {
+    if (text && text !== "Your prompt will appear here..." && text !== "Please select at least one feature!") {
         navigator.clipboard.writeText(text);
         alert("Prompt copied to clipboard!");
     }
