@@ -14,7 +14,7 @@
             justify-content: center;
         }
         .container {
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             background: #1e1e1e;
             padding: 30px;
@@ -95,6 +95,45 @@
     <div class="input-group">
         <label for="genre">Core Music Genre / Style:</label>
         <input type="text" id="genre" placeholder="e.g., 1980s Synthwave, Dark Country, Lo-Fi Hip Hop">
+    </div>
+
+    <div class="input-group">
+        <label for="mood">Mood & Energy:</label>
+        <select id="mood">
+            <option value="">-- Select Mood (Optional) --</option>
+            <option value="uplifting">Uplifting & Energetic</option>
+            <option value="melancholic">Melancholic & Sad</option>
+            <option value="dark">Dark & Mysterious</option>
+            <option value="dreamy">Dreamy & Atmospheric</option>
+            <option value="aggressive">Aggressive & Powerful</option>
+            <option value="chill">Chill & Relaxed</option>
+            <option value="epic">Epic & Cinematic</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label for="tempo">Tempo / BPM:</label>
+        <select id="tempo">
+            <option value="">-- Select Tempo (Optional) --</option>
+            <option value="slow">Slow / Ambient (60-80 BPM)</option>
+            <option value="mid-tempo">Mid-Tempo / Groovy (90-110 BPM)</option>
+            <option value="fast">Fast / Upbeat (120-140 BPM)</option>
+            <option value="very fast">Very Fast / High Energy (150+ BPM)</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label for="vocals">Vocal Style / Type:</label>
+        <select id="vocals">
+            <option value="">-- Select Vocal Type (Optional) --</option>
+            <option value="male vocals">Male Vocals</option>
+            <option value="female vocals">Female Vocals</option>
+            <option value="soaring vocals">Soaring Vocals</option>
+            <option value="gritty vocals">Gritty / Raw Vocals</option>
+            <option value="whispering vocals">Whispering / Soft Vocals</option>
+            <option value="melodic vocals">Melodic / Clean Vocals</option>
+            <option value="instrumental">Instrumental Only (No Vocals)</option>
+        </select>
     </div>
 
     <div class="input-group">
@@ -206,26 +245,34 @@
 <script>
 function generatePrompt() {
     const genre = document.getElementById('genre').value.trim();
+    const mood = document.getElementById('mood').value;
+    const tempo = document.getElementById('tempo').value;
+    const vocals = document.getElementById('vocals').value;
     const inst1 = document.getElementById('instrument1').value;
     const inst2 = document.getElementById('instrument2').value;
 
     let tags = [];
 
+    // Order elements smoothly for Suno's parsing engine
     if (genre) tags.push(genre);
+    if (mood) tags.push(mood);
+    if (tempo) tags.push(tempo);
     if (inst1) tags.push(inst1);
     if (inst2) tags.push(inst2);
+    if (vocals) tags.push(vocals);
 
     if (tags.length === 0) {
-        document.getElementById('result').innerText = "Please enter a genre or select an instrument!";
+        document.getElementById('result').innerText = "Please fill out or select at least one feature!";
         return;
     }
 
+    // Combine everything into a perfect lowercase comma-separated tag string
     document.getElementById('result').innerText = tags.join(', ').toLowerCase();
 }
 
 function copyPrompt() {
     const text = document.getElementById('result').innerText;
-    if (text && text !== "Your prompt will appear here..." && text !== "Please enter a genre or select an instrument!") {
+    if (text && text !== "Your prompt will appear here..." && text !== "Please fill out or select at least one feature!") {
         navigator.clipboard.writeText(text);
         alert("Prompt copied to clipboard!");
     }
