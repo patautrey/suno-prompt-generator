@@ -24,7 +24,28 @@
         h1 {
             text-align: center;
             color: #ff4757;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #747d8c;
             margin-bottom: 25px;
+            font-size: 14px;
+        }
+        .preset-section {
+            background: #2f3542;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px dashed #ff4757;
+        }
+        .preset-title {
+            font-weight: bold;
+            color: #ff4757;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .input-group {
             margin-bottom: 20px;
@@ -91,7 +112,65 @@
 
 <div class="container">
     <h1>Suno Style Prompt Generator</h1>
+    <div class="subtitle">Precision AI music modeling tool</div>
     
+    <div class="preset-section">
+        <div class="preset-title">🎵 50 Years of Billboard Song-of-the-Year Presets</div>
+        <select id="billboardPreset" onchange="loadBillboardPreset()">
+            <option value="">-- Load a Classic Hit Style Setup --</option>
+            <option value="1976">1976: "Silly Love Songs" - Wings</option>
+            <option value="1977">1977: "Tonight's the Night" - Rod Stewart</option>
+            <option value="1978">1978: "Shadow Dancing" - Andy Gibb</option>
+            <option value="1979">1979: "My Sharona" - The Knack</option>
+            <option value="1980">1980: "Call Me" - Blondie</option>
+            <option value="1981">1981: "Bette Davis Eyes" - Kim Carnes</option>
+            <option value="1982">1982: "Physical" - Olivia Newton-John</option>
+            <option value="1983">1983: "Every Breath You Take" - The Police</option>
+            <option value="1984">1984: "When Doves Cry" - Prince</option>
+            <option value="1985">1985: "Careless Whisper" - Wham!</option>
+            <option value="1986">1986: "That's What Friends Are For" - Dionne & Friends</option>
+            <option value="1987">1987: "Walk Like an Egyptian" - Bangles</option>
+            <option value="1988">1988: "Faith" - George Michael</option>
+            <option value="1989">1989: "Look Away" - Chicago</option>
+            <option value="1990">1990: "Hold On" - Wilson Phillips</option>
+            <option value="1991">1991: "(Everything I Do) I Do It for You" - Bryan Adams</option>
+            <option value="1992">1992: "End of the Road" - Boyz II Men</option>
+            <option value="1993">1993: "I Will Always Love You" - Whitney Houston</option>
+            <option value="1994">1994: "The Sign" - Ace of Base</option>
+            <option value="1995">1995: "Gangsta's Paradise" - Coolio</option>
+            <option value="1996">1996: "Macarena" - Los Del Rio</option>
+            <option value="1997">1997: "Candle in the Wind 1997" - Elton John</option>
+            <option value="1998">1998: "Too Close" - Next</option>
+            <option value="1999">1999: "Believe" - Cher</option>
+            <option value="2000">2000: "Breathe" - Faith Hill</option>
+            <option value="2001">2001: "Hanging by a Moment" - Lifehouse</option>
+            <option value="2002">2002: "How You Remind Me" - Nickelback</option>
+            <option value="2003">2003: "In da Club" - 50 Cent</option>
+            <option value="2004">2004: "Yeah!" - Usher ft. Lil Jon & Ludacris</option>
+            <option value="2005">2005: "We Belong Together" - Mariah Carey</option>
+            <option value="2006">2006: "Bad Day" - Daniel Powter</option>
+            <option value="2007">2007: "Irreplaceable" - Beyoncé</option>
+            <option value="2008">2008: "Low" - Flo Rida ft. T-Pain</option>
+            <option value="2009">2009: "Boom Boom Pow" - Black Eyed Peas</option>
+            <option value="2010">2010: "Tik Tok" - Ke$ha</option>
+            <option value="2011">2011: "Rolling in the Deep" - Adele</option>
+            <option value="2012">2012: "Somebody That I Used to Know" - Gotye ft. Kimbra</option>
+            <option value="2013">2013: "Thrift Shop" - Macklemore & Ryan Lewis</option>
+            <option value="2014">2014: "Happy" - Pharrell Williams</option>
+            <option value="2015">2015: "Uptown Funk" - Mark Ronson ft. Bruno Mars</option>
+            <option value="2016">2016: "Love Yourself" - Justin Bieber</option>
+            <option value="2017">2017: "Shape of You" - Ed Sheeran</option>
+            <option value="2018">2018: "God's Plan" - Drake</option>
+            <option value="2019">2019: "Old Town Road" - Lil Nas X ft. Billy Ray Cyrus</option>
+            <option value="2020">2020: "Blinding Lights" - The Weeknd</option>
+            <option value="2021">2021: "Levitating" - Dua Lipa</option>
+            <option value="2022">2022: "As It Was" - Harry Styles</option>
+            <option value="2023">2023: "Last Night" - Morgan Wallen</option>
+            <option value="2024">2024: "A Bar Song (Tipsy)" - Shaboozey</option>
+            <option value="2025">2025: "Birds of a Feather" - Billie Eilish</option>
+        </select>
+    </div>
+
     <div class="input-group">
         <label for="genre">Core Music Genre / Style:</label>
         <select id="genre">
@@ -359,6 +438,91 @@
 </div>
 
 <script>
+// Deep style mapping for the past 50 years of Billboard year-end #1 hits
+const billboardData = {
+    "1976": { genre: "70s motown soul", mood: "playful", prod: "warm analog tape saturation", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "male vocals", inst1: "Slap Bass", inst2: "Lush Strings" },
+    "1977": { genre: "70s motown soul", mood: "sensual", prod: "warm analog tape saturation", prog: "evolving atmospheric layers", tempo: "slow", vocals: "gritty raw vocals", inst1: "Rhodes Electric Piano", inst2: "Nylon-String Guitar" },
+    "1978": { genre: "nu-disco pop", mood: "uplifting", prod: "polished radio master", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "male vocals", inst1: "Slap Bass", inst2: "Synth Pad" },
+    "1979": { genre: "classic hard rock", mood: "energetic", prod: "raw garage rehearsal mix", prog: "steady rhythmic driving repetition", tempo: "fast", vocals: "gritty raw vocals", inst1: "Distorted Guitar", inst2: "Tambourine & Shaker" },
+    "1980": { genre: "post-punk revival", mood: "energetic", prod: "polished radio master", prog: "steady rhythmic driving repetition", tempo: "fast", vocals: "female vocals", inst1: "Analog Synth", inst2: "Distorted Guitar" },
+    "1981": { genre: "shoegaze", mood: "mysterious", prod: "warm analog tape saturation", prog: "evolving atmospheric layers", tempo: "mid-tempo", vocals: "gritty raw vocals", inst1: "Analog Synth", inst2: "Wurlitzer" },
+    "1982": { genre: "nu-disco pop", mood: "energetic", prod: "polished radio master", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "female vocals", inst1: "Analog Synth", inst2: "Tambourine & Shaker" },
+    "1983": { genre: "post-punk revival", mood: "haunting", prod: "polished radio master", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "male vocals", inst1: "Synth Pad", inst2: "Brush Drums" },
+    "1984": { genre: "1980s synthwave", mood: "dark", prod: "polished radio master", prog: "minimalist sparse arrangement", tempo: "mid-tempo", vocals: "male vocals", inst1: "Analog Synth", inst2: "Rhodes Electric Piano" },
+    "1985": { genre: "modern r&b", mood: "sensual", prod: "polished radio master", prog: "anthem hook focus", tempo: "slow", vocals: "whispering soft vocals", inst1: "Saxophone", inst2: "Synth Pad" },
+    "1986": { genre: "modern r&b", mood: "peaceful", prod: "polished radio master", prog: "lush 3-part harmony", tempo: "slow", vocals: "lush 3-part harmony", inst1: "Rhodes Electric Piano", inst2: "Synth Pad" },
+    "1987": { genre: "nu-disco pop", mood: "playful", prod: "polished radio master", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "female vocals", inst1: "Tambourine & Shaker", inst2: "Analog Synth" },
+    "1988": { genre: "70s motown soul", mood: "energetic", prod: "polished radio master", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "male vocals", inst1: "Nylon-String Guitar", inst2: "Tambourine & Shaker" },
+    "1989": { genre: "neo-classical piano", mood: "melancholic", prod: "polished radio master", prog: "gradual dynamic build to massive climax", tempo: "slow", vocals: "male vocals", inst1: "Synth Pad", inst2: "Distorted Guitar" },
+    "1990": { genre: "nu-disco pop", mood: "uplifting", prod: "polished radio master", prog: "lush 3-part harmony", tempo: "mid-tempo", vocals: "lush 3-part harmony", inst1: "Synth Pad", inst2: "Tambourine & Shaker" },
+    "1991": { genre: "classic hard rock", mood: "epic", prod: "polished radio master", prog: "gradual dynamic build to massive climax", tempo: "slow", vocals: "gritty raw vocals", inst1: "Nylon-String Guitar", inst2: "Distorted Guitar" },
+    "1992": { genre: "modern r&b", mood: "melancholic", prod: "polished radio master", prog: "lush 3-part harmony", tempo: "slow", vocals: "lush 3-part harmony", inst1: "Rhodes Electric Piano", inst2: "Synth Pad" },
+    "1993": { genre: "modern r&b", mood: "epic", prod: "polished radio master", prog: "gradual dynamic build to massive climax", tempo: "slow", vocals: "soaring vocals", inst1: "Synth Pad", inst2: "Saxophone" },
+    "1994": { genre: "eurodance", mood: "uplifting", prod: "polished radio master", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "female vocals", inst1: "Analog Synth", inst2: "Tambourine & Shaker" },
+    "1995": { genre: "trap hip hop", mood: "dark", prod: "smoky underground club mix", prog: "steady rhythmic driving repetition", tempo: "slow", vocals: "rhythmic spoken word rap", inst1: "Synth Pad", inst2: "808 Bass" },
+    "1996": { genre: "eurodance", mood: "playful", prod: "polished radio master", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "male vocals", inst1: "Congas", inst2: "Analog Synth" },
+    "1997": { genre: "neo-classical piano", mood: "somber", prod: "polished radio master", prog: "evolving atmospheric layers", tempo: "slow", vocals: "male vocals", inst1: "Rhodes Electric Piano", inst2: "Synth Pad" },
+    "1998": { genre: "modern r&b", mood: "sensual", prod: "polished radio master", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "male vocals", inst1: "808 Bass", inst2: "Rhodes Electric Piano" },
+    "1999": { genre: "eurodance", mood: "euphoric", prod: "polished radio master", prog: "anthem hook focus", tempo: "fast", vocals: "female vocals", inst1: "Analog Synth", inst2: "Supersaw" },
+    "2000": { genre: "bluegrass americana", mood: "dreamy", prod: "polished radio master", prog: "evolving atmospheric layers", tempo: "mid-tempo", vocals: "female vocals", inst1: "Acoustic Guitar", inst2: "Synth Pad" },
+    "2001": { genre: "post-punk revival", mood: "earnest", prod: "polished radio master", prog: "gradual dynamic build to massive climax", tempo: "mid-tempo", vocals: "male vocals", inst1: "Distorted Guitar", inst2: "Upright Bass" },
+    "2002": { genre: "90s grunge", mood: "aggressive", prod: "raw garage rehearsal mix", prog: "loud-quiet-loud alternative dynamics", tempo: "mid-tempo", vocals: "gritty raw vocals", inst1: "Distorted Guitar", inst2: "Slap Bass" },
+    "2003": { genre: "trap hip hop", mood: "energetic", prod: "smoky underground club mix", prog: "minimalist sparse arrangement", tempo: "slow", vocals: "rhythmic spoken word rap", inst1: "808 Bass", inst2: "Clavinet" },
+    "2004": { genre: "deep house", mood: "furious", prod: "smoky underground club mix", prog: "explosive energy jumps and drops", tempo: "mid-tempo", vocals: "male vocals", inst1: "808 Bass", inst2: "Analog Synth" },
+    "2005": { genre: "modern r&b", mood: "melancholic", prod: "polished radio master", prog: "anthem hook focus", tempo: "slow", vocals: "female vocals", inst1: "Rhodes Electric Piano", inst2: "808 Bass" },
+    "2006": { genre: "neo-classical piano", mood: "nostalgic", prod: "polished radio master", prog: "gradual dynamic build to massive climax", tempo: "mid-tempo", vocals: "male vocals", inst1: "Wurlitzer", inst2: "Brush Drums" },
+    "2007": { genre: "modern r&b", mood: "rebellious", prod: "polished radio master", prog: "minimalist sparse arrangement", tempo: "mid-tempo", vocals: "female vocals", inst1: "Acoustic Guitar", inst2: "808 Bass" },
+    "2008": { genre: "trap hip hop", mood: "hypnotic", prod: "smoky underground club mix", prog: "explosive energy jumps and drops", tempo: "mid-tempo", vocals: "rhythmic spoken word rap", inst1: "808 Bass", inst2: "Analog Synth" },
+    "2009": { genre: "cyberpunk industrial", mood: "furious", prod: "high-fidelity futuristic clean mix", prog: "explosive energy jumps and drops", tempo: "mid-tempo", vocals: "male vocals", inst1: "Analog Synth", inst2: "Supersaw" },
+    "2010": { genre: "eurodance", mood: "euphoric", prod: "high-fidelity futuristic clean mix", prog: "steady rhythmic driving repetition", tempo: "fast", vocals: "female vocals", inst1: "Analog Synth", inst2: "Supersaw" },
+    "2011": { genre: "smoky jazz lounge", mood: "furious", prod: "warm analog tape saturation", prog: "gradual dynamic build to massive climax", tempo: "mid-tempo", vocals: "soaring vocals", inst1: "Wurlitzer", inst2: "Taiko Drums" },
+    "2012": { genre: "indie surf rock", mood: "lonely", prod: "intimate studio dry mix", prog: "minimalist sparse arrangement", tempo: "mid-tempo", vocals: "male-female duet", inst1: "Cajón", inst2: "Wurlitzer" },
+    "2013": { genre: "trap hip hop", mood: "playful", prod: "raw garage rehearsal mix", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "rhythmic spoken word rap", inst1: "Saxophone", inst2: "808 Bass" },
+    "2014": { genre: "nu-disco pop", mood: "uplifting", prod: "polished radio master", prog: "steady rhythmic driving repetition", tempo: "fast", vocals: "male vocals", inst1: "Slap Bass", inst2: "Congas" },
+    "2015": { genre: "70s motown soul", mood: "euphoric", prod: "polished radio master", prog: "steady rhythmic driving repetition", tempo: "fast", vocals: "male vocals", inst1: "Slap Bass", inst2: "Muted Trumpet" },
+    "2016": { genre: "indie surf rock", mood: "somber", prod: "intimate studio dry mix", prog: "minimalist sparse arrangement", tempo: "slow", vocals: "melodic clean vocals", inst1: "Nylon-String Guitar", inst2: "Synth Pad" },
+    "2017": { genre: "lo-fi hip hop", mood: "playful", prod: "crispy modern streaming master", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "melodic clean vocals", inst1: "Marimba", inst2: "808 Bass" },
+    "2018": { genre: "trap hip hop", mood: "mysterious", prod: "smoky underground club mix", prog: "steady rhythmic driving repetition", tempo: "slow", vocals: "rhythmic spoken word rap", inst1: "808 Bass", inst2: "Synth Pad" },
+    "2019": { genre: "dark country outlaw", mood: "playful", prod: "crispy modern streaming master", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "male vocals", inst1: "Banjo", inst2: "808 Bass" },
+    "2020": { genre: "1980s synthwave", mood: "anxious", prod: "high-fidelity futuristic clean mix", prog: "steady rhythmic driving repetition", tempo: "fast", vocals: "male vocals", inst1: "Analog Synth", inst2: "Arpeggiated Synth" },
+    "2021": { genre: "nu-disco pop", mood: "euphoric", prod: "crispy modern streaming master", prog: "steady rhythmic driving repetition", tempo: "fast", vocals: "female vocals", inst1: "Slap Bass", inst2: "Analog Synth" },
+    "2022": { genre: "1980s synthwave", mood: "bittersweet", prod: "crispy modern streaming master", prog: "steady rhythmic driving repetition", tempo: "fast", vocals: "male vocals", inst1: "Analog Synth", inst2: "Synth Pad" },
+    "2023": { genre: "dark country outlaw", mood: "anxious", prod: "intimate studio dry mix", prog: "minimalist sparse arrangement", tempo: "mid-tempo", vocals: "male vocals", inst1: "Nylon-String Guitar", inst2: "Upright Bass" },
+    "2024": { genre: "dark country outlaw", mood: "playful", prod: "crispy modern streaming master", prog: "steady rhythmic driving repetition", tempo: "mid-tempo", vocals: "gritty raw vocals", inst1: "Banjo", inst2: "Acoustic Guitar" },
+    "2025": { genre: "lo-fi hip hop", mood: "dreamy", prod: "lo-fi cassette warmth", prog: "evolving atmospheric layers", tempo: "slow", vocals: "whispering soft vocals", inst1: "Synth Pad", inst2: "Rhodes Electric Piano" }
+};
+
+function loadBillboardPreset() {
+    const year = document.getElementById('billboardPreset').value;
+    if (!year) return;
+    
+    const config = billboardData[year];
+    
+    // Set form fields based on preset config
+    document.getElementById('genre').value = config.genre;
+    document.getElementById('mood').value = config.mood;
+    document.getElementById('production').value = config.production || config.prod;
+    document.getElementById('progression').value = config.progression || config.prog;
+    document.getElementById('tempo').value = config.tempo;
+    document.getElementById('vocals').value = config.vocals;
+    
+    // Try to map instruments cleanly or reset
+    document.getElementById('instrument1').value = findDropdownOption('instrument1', config.inst1);
+    document.getElementById('instrument2').value = findDropdownOption('instrument2', config.inst2);
+
+    generatePrompt();
+}
+
+function findDropdownOption(id, val) {
+    const el = document.getElementById(id);
+    for (let option of el.options) {
+        if (option.value.toLowerCase() === val.toLowerCase()) {
+            return option.value;
+        }
+    }
+    return ""; // Fallback to none if specific layered item isn't in menu
+}
+
 function generatePrompt() {
     const genre = document.getElementById('genre').value;
     const mood = document.getElementById('mood').value;
@@ -381,7 +545,7 @@ function generatePrompt() {
     if (vocals) tags.push(vocals);
 
     if (tags.length === 0) {
-        document.getElementById('result').innerText = "Please select at least one feature!";
+        document.getElementById('result').innerText = "Please select a preset or configure a feature!";
         return;
     }
 
@@ -390,7 +554,7 @@ function generatePrompt() {
 
 function copyPrompt() {
     const text = document.getElementById('result').innerText;
-    if (text && text !== "Your prompt will appear here..." && text !== "Please select at least one feature!") {
+    if (text && text !== "Your prompt will appear here..." && text !== "Please select a preset or configure a feature!") {
         navigator.clipboard.writeText(text);
         alert("Prompt copied to clipboard!");
     }
