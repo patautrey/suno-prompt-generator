@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUNO Style Prompt Designer</title>
+    <style>
+        :root {
+            --bg-color: #121214;
+            --card-bg: #1a1a1e;
+            --accent-color: #7289da;
+            --text-color: #e3e3e6;
+            --text-muted: #9a9a9f;
+            --border-color: #2a2a30;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            border-index: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            margin-top: 25px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+        }
+
+        select, input[type="text"] {
+            background-color: #222227;
+            color: #fff;
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        select:focus, input[type="text"]:focus {
+            border-color: var(--accent-color);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Preview & Output Layout */
+        .output-box {
+            margin-top: 30px;
+            background-color: #0b0b0c;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .output-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        .char-count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .char-count.warning {
+            color: #ffaa00;
+        }
+
+        #prompt-output {
+            width: 100%;
+            min-height: 60px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.1rem;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button.secondary {
+            background-color: #2a2a30;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+
+        button.secondary:hover {
+            background-color: #34343a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>SUNO Style Prompt Designer</h1>
+    <div class="subtitle">Mix textures, architectures, and moods while keeping an eye on the 120-character limit.</div>
+
+    <!-- Tier 1: Curated Master Presets -->
+    <div class="section-title">Curated Production Presets</div>
+    <div class="form-group">
+        <label for="preset-select">Select a Pre-configured Style Combo (Overwrites choices below)</label>
+        <select id="preset-select" onchange="applyPreset()">
+            <option value="">-- Choose an established style profile --</option>
+            <!-- New additions requested -->
+            <option value="uplifting atmospheric worship ballad, ethereal vocals, sweeping orchestral arrangements">Worship: Uplifting Atmospheric Ballad (Ethereal Vocals, Orchestral)</option>
+            <option value="live music, heavy metal, solo guitar, symphonic elements, aggressive power vocals">Metal: Symphonic Live Metal (Solo Guitar, Aggressive Power Vocals)</option>
+            <option value="bedroom-produced grungegaze, catchy, psychedelic, acoustic tape recording, lo-fi aesthetics">Rock: Bedroom Grungegaze (Psychedelic, Lo-Fi Tape)</option>
+            <option value="rapid-fire rap, 140 bpm, deep bass beats, aggressive delivery, minor key, high tension">Hip Hop: Rapid-Fire Rap (140 BPM, Deep Bass, High Tension)</option>
+            <option value="chillwave electronic, ambient textures, slow-tempo, reverb-heavy vocals, dreamy synth backdrop">Electronic: Chillwave (Dreamy Synths, Reverb Vocals)</option>
+            <option value="futuristic cyberpunk EDM, high-energy beats, distorted synth lines, dystopian themes">Electronic: Cyberpunk EDM (High-Energy, Distorted Synths)</option>
+            <option value="acoustic folk, storytelling lyrics, warm vocal harmonies, fingerstyle guitar, soft percussion">Folk: Storytelling Acoustic (Warm Harmonies, Fingerstyle)</option>
+            <option value="vintage jazz lounge, classic standards, smooth trumpet solos, upright bass, sultry female vocals">Jazz: Vintage Lounge (Smooth Trumpet, Upright Bass, Sultry Vocals)</option>
+            <option value="baroque pop, intricate melodies, orchestral arrangements, harpsichord flourishes, poetic lyrics">Pop: Baroque Pop (Harpsichord, Orchestral, Intricate)</option>
+            <option value="dark ambient, atmospheric soundscapes, slow-moving textures, unsettling eerie mood">Ambient: Dark Ambient (Slow Textures, Eerie Mood)</option>
+            <option value="tropical house, upbeat sun-kissed melodies, steel drums, breezy vocals, laid-back rhythm">Electronic: Tropical House (Steel Drums, Breezy Vocals)</option>
+            <option value="psychedelic funk, groovy bass lines, wah-wah guitars, trippy effects, energetic brass">Funk: Psychedelic Funk (Groovy Bass, Wah Guitar, Brass)</option>
+            <option value="epic cinematic scores, sweeping orchestral movements, heroic themes, stirring emotional peaks">Cinematic: Epic Scores (Heroic Themes, Orchestral)</option>
+            <option value="minimal techno, repetitive beats, subtle progression, hypnotic rhythms, deep underground feel">Electronic: Minimal Techno (Hypnotic, Deep Underground)</option>
+            <option value="indie surf rock, jangly guitars, beachy vibes, carefree vocals, upbeat sunny melodies">Rock: Indie Surf Rock (Jangly Guitars, Beachy Vibes)</option>
+            <option value="soulful gospel choir, powerful lead vocals, uplifting messages, organ, handclaps">Vocal: Soulful Gospel Choir (Organ, Uplifting)</option>
+            <option value="aggressive trap metal, distorted 808s, screamed vocals, chaotic energy, mosh-pit breakdowns">Metal/Trap: Aggressive Trap Metal (Distorted 808s, Screams)</option>
+            <option value="contemporary classical piano, emotive compositions, dynamic range, nuanced performance">Classical: Contemporary Piano (Emotive, Nuanced)</option>
+            <option value="gypsy jazz, acoustic guitars, fast-paced swing rhythms, violin solos, festive atmosphere">Jazz: Gypsy Jazz (Fast Swing, Violin Solos)</option>
+            <option value="dream pop, ethereal vocals, shimmering guitars, lush synths, nostalgic longing">Pop: Dream Pop (Ethereal, Shimmering Guitars, Lush Synths)</option>
+            <option value="balkan electro swing, energetic brass, electronic beats, folk melodies, infectious dance">Electronic: Balkan Electro Swing (Brass, Infectious Dance)</option>
+            <option value="hardcore punk, fast tempos, political lyrics, raw vocals, DIY ethos">Rock: Hardcore Punk (Fast, Raw, DIY Ethos)</option>
+            <option value="space ambient, cosmic soundscapes, slow-evolving textures, infinite exploration">Ambient: Space Ambient (Cosmic, Slow-Evolving)</option>
+            <option value="gregorian chorale, choir, carried singing, epic, majestic, ecclesiastical">Vocal: Gregorian Chorale (Epic, Majestic, Ecclesiastical)</option>
+            <option value="math rock, J-pop, mutation funk, bounce drop, dubstep, edm, 160bpm">Fusion: Math Rock / J-Pop / Mutation Funk (160 BPM)</option>
+            <option value="anime opening, heavy metal, male vocal">Fusion: Anime Opening (Heavy Metal, Male Vocal)</option>
+            <option value="pentatonic scale, modern classic, game music, guzheng, piano, chinese drum, cello, slow sad mellow">Cinematic: Pentatonic Modern Classic (Guzheng, Piano, Cello, Sad)</option>
+        </select>
+    </div>
+
+    <!-- Tier 2: Dynamic Granular Controls -->
+    <div class="section-title">Granular Elements</div>
+    <div class="grid">
+        <!-- Primary Genre Layer -->
+        <div class="form-group">
+            <label for="genre">Core Genre / Style</label>
+            <select id="genre" onchange="updatePrompt()">
+                <option value="">-- None --</option>
+                <option value="heavy metal">Heavy Metal</option>
+                <option value="grungegaze">Grungegaze</option>
+                <option value="rap">Rap / Hip Hop</option>
+                <option value="chillwave">Chillwave</option>
+                <option value="cyberpunk EDM">Cyberpunk EDM</option>
+                <option value="acoustic folk">Acoustic Folk</option>
+                <option value="vintage jazz">Vintage Jazz</option>
+                <option value="baroque pop">Baroque Pop</option>
+                <option value="dark ambient">Dark Ambient</option>
+                <option value="gregorian chorale">Gregorian Chorale</option>
+                <option value="math rock">Math Rock</option>
+                <option value="mutation funk">Mutation Funk</option>
+                <option value="worship ballad">Worship Ballad</option>
+            </select>
+        </div>
+
+        <!-- System Beats & Architecture -->
+        <div class="form-group">
+            <label for="tempo">Tempo / Key / Feel</label>
+            <select id="tempo" onchange="updatePrompt()">
+                <option value="">-- None --</option>
+                <option value="140 bpm">140 BPM</option>
+                <option value="160 bpm">160 BPM</option>
+                <option value="slow-tempo">Slow-Tempo</option>
+                <option value="fast tempos">Fast Tempos</option>
+                <option value="minor key">Minor Key</option>
+                <option value="pentatonic scale">Pentatonic Scale</option>
+                <option value="live music">Live Music</option>
+            </select>
+        </div>
+
+        <!-- Vocals Layer -->
+        <div class="form-group">
+            <label for="vocals">Vocal Delivery</label>
+            <select id="vocals" onchange="updatePrompt()">
+                <option value="">-- None --</option>
+                <option value="ethereal vocals">Ethereal Vocals</option>
+                <option value="aggressive power vocals">Aggressive Power Vocals</option>
+                <option value="reverb-heavy vocals">Reverb-Heavy Vocals</option>
+                <option value="sultry female vocals">Sultry Female Vocals</option>
+                <option value="screamed vocals">Screamed Vocals</option>
+                <option value="male vocal">Male Vocal</option>
+                <option value="choir">Choir / Gospel Choir</option>
+                <option value="raw vocals">Raw Vocals</option>
+            </select>
+        </div>
+
+        <!-- Textures & Instruments -->
+        <div class="form-group">
+            <label for="instrumentation">Instruments & Textures</label>
+            <select id="instrumentation" onchange="updatePrompt()">
+                <option value="">-- None --</option>
+                <option value="solo guitar">Solo Guitar</option>
+                <option value="fingerstyle guitar">Fingerstyle Guitar</option>
+                <option value="distorted synths">Distorted Synths</option>
+                <option value="sweeping orchestral arrangements">Sweeping Orchestral</option>
+                <option value="guzheng & piano & cello">Guzheng, Piano, & Cello</option>
+                <option value="harpsichord flourishes">Harpsichord Flourishes</option>
+                <option value="distorted 808s">Distorted 808s</option>
+                <option value="smooth trumpet solos">Smooth Trumpet</option>
+            </select>
+        </div>
+
+        <!-- Aesthetic / Vibe Modifier -->
+        <div class="form-group full-width">
+            <label for="vibe">Aesthetic / Production Modifier</label>
+            <select id="vibe" onchange="updatePrompt()">
+                <option value="">-- None --</option>
+                <option value="lo-fi aesthetics, acoustic tape recording">Lo-Fi / Acoustic Tape Recording</option>
+                <option value="high tension">High Tension</option>
+                <option value="dystopian themes">Dystopian Themes</option>
+                <option value="unsettling eerie mood">Unsettling, Eerie Mood</option>
+                <option value="bounce drop, dubstep">Bounce Drop / Dubstep</option>
+                <option value="chaotic energy">Chaotic Energy</option>
+                <option value="ecclesiastical, majestic">Ecclesiastical & Majestic</option>
+            </select>
+        </div>
+
+        <!-- Custom Manual Additions -->
+        <div class="form-group full-width">
+            <label for="custom-tags">Manual Tags (Comma separated manual overrides)</label>
+            <input type="text" id="custom-tags" placeholder="e.g., analog warmth, sidechained, bitcrushed" oninput="updatePrompt()">
+        </div>
+    </div>
+
+    <!-- Prompt Output Engine -->
+    <div class="output-box">
+        <div class="output-header">
+            <div class="output-title">Generated SUNO Style Prompt</div>
+            <div id="counter" class="char-count">0 / 120 chars</div>
+        </div>
+        <textarea id="prompt-output" readonly placeholder="Select parameters above to forge your prompt..."></textarea>
+       
+        <div class="button-group">
+            <button onclick="copyPrompt()">Copy Style Prompt</button>
+            <button class="secondary" onclick="resetForm()">Reset</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updatePrompt() {
+        // Clear preset selector if user switches back to tweaking dropdowns manually
+        document.getElementById('preset-select').value = "";
+
+        const genre = document.getElementById('genre').value;
+        const tempo = document.getElementById('tempo').value;
+        const vocals = document.getElementById('vocals').value;
+        const instrumentation = document.getElementById('instrumentation').value;
+        const vibe = document.getElementById('vibe').value;
+        const custom = document.getElementById('custom-tags').value;
+
+        let tags = [];
+        if (genre) tags.push(genre);
+        if (tempo) tags.push(tempo);
+        if (vocals) tags.push(vocals);
+        if (instrumentation) tags.push(instrumentation);
+        if (vibe) tags.push(vibe);
+       
+        if (custom) {
+            custom.split(',').forEach(tag => {
+                let trimmed = tag.trim();
+                if (trimmed) tags.push(trimmed);
+            });
+        }
+
+        // Combine into standard Suno comma-separated token structure
+        let finalPrompt = tags.join(', ').toLowerCase();
+       
+        renderOutput(finalPrompt);
+    }
+
+    function applyPreset() {
+        const presetVal = document.getElementById('preset-select').value;
+        if (presetVal) {
+            // Reset granular dropdowns to keep UI clean
+            document.getElementById('genre').value = "";
+            document.getElementById('tempo').value = "";
+            document.getElementById('vocals').value = "";
+            document.getElementById('instrumentation').value = "";
+            document.getElementById('vibe').value = "";
+            document.getElementById('custom-tags').value = "";
+           
+            renderOutput(presetVal);
+        } else {
+            updatePrompt();
+        }
+    }
+
+    function renderOutput(text) {
+        const outputField = document.getElementById('prompt-output');
+        const counter = document.getElementById('counter');
+       
+        outputField.value = text;
+        counter.innerText = `${text.length} / 120 chars`;
+
+        if (text.length > 120) {
+            counter.classList.add('warning');
+            counter.style.color = '#ff4a4a';
+        } else if (text.length > 100) {
+            counter.classList.add('warning');
+            counter.style.color = '#ffaa00';
+        } else {
+            counter.classList.remove('warning');
+            counter.style.color = 'var(--text-muted)';
+        }
+    }
+
+    function copyPrompt() {
+        const outputField = document.getElementById('prompt-output');
+        if (!outputField.value) return;
+       
+        outputField.select();
+        outputField.setSelectionRange(0, 99999); /* For mobile devices */
+        navigator.clipboard.writeText(outputField.value);
+       
+        alert("Prompt copied to clipboard!");
+    }
+
+    function resetForm() {
+        document.getElementById('preset-select').value = "";
+        document.getElementById('genre').value = "";
+        document.getElementById('tempo').value = "";
+        document.getElementById('vocals').value = "";
+        document.getElementById('instrumentation').value = "";
+        document.getElementById('vibe').value = "";
+        document.getElementById('custom-tags').value = "";
+        renderOutput("");
+    }
+</script>
+
+</body>
+</html>
